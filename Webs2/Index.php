@@ -1,12 +1,14 @@
-<HTML>
-	<HEADER>
-		<TITLE>
+<html>
+	<header>
+	<link rel="stylesheet" content="text/css" href="CSS/BasicStyle.css">
+		<title>
 			Auto website
-		</TITLE>
-	</HEADER>
+		</title>
+	</header>
 	
-	<BODY>
-	
-	
-	</BODY>
-</HTML>
+	<body>
+	<?php include_once "Header.php" ?>
+		
+	<?php include_once "Footer.php" ?>
+	</body>
+</html>

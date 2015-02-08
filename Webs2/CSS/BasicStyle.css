@@ -1,0 +1,88 @@
+body{
+	background:white;
+	margin-top:-30px;
+}
+
+#ScreenContainer{
+	padding-top:50px;
+	width:980px;
+	min-height:1000px;
+	margin:auto;
+	background-color:rgb(215,236,243);
+	box-shadow:0px 0px 1000px lightblue;
+}
+
+#TopMenuContainer{
+	width:750px;
+	margin:auto;
+}
+
+#TopMenuLogoImg{
+	width:130px;
+	float:left;
+}
+
+#TopMenuCompanyText{
+	font-size:45px;
+	margin-left:200px;
+	color:orange;
+	font-weight:bold;
+}
+
+#TopMenuMenuBar{
+	background-color:blue;
+	border-radius:20px;
+	height:50px;
+	width:600px;
+	margin:auto;
+	margin-top:30px;
+	border-bottom:8px solid orange;
+}
+
+#TopMenuMenuLinkFirst{
+	margin-left:75px;
+	border-left:1px solid black;
+}
+
+.TopMenuMenuLink{
+	float:left;
+	height:inherit;
+	text-decoration:none;
+	border-right:1px solid black;
+}
+
+.TopMenuMenuItem{
+	text-decoration:none;
+	font-size:20;
+	color:orange;
+	padding:15px;
+	padding-bottom:12px;
+}
+
+.TopMenuMenuItem:hover{
+	background: rgb(80,80,255);
+	box-shadow:inset 5px 5px 30px blue;
+}
+
+#FooterContainer{
+	width:750px;
+	margin:auto;
+}
+
+#Footer{
+	background-color:blue;
+	border-radius:20px;
+	height:20px;
+	width:600px;
+	margin:auto;
+	margin-top:30px;
+	border-top:8px solid orange;
+	padding-right:10px;
+	padding-top:3px;
+}
+
+#Footer span{
+	color:orange;
+	float:right;
+}
+
