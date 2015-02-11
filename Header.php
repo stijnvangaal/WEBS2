@@ -1,12 +1,13 @@
+<div id="TopRow"></div>
 <div id="ScreenContainer">
 <!-- Header -->
 
 <!-- logo + site name -->
 	<div id="TopMenuContainer">
-		<img id="TopMenuLogoImg" src="Images/DickbuttTest.png">
+		<img id="TopMenuLogoImg" src="Images/ferrari.png">
 		
 		<div id="TopMenuCompanyText">
-			<span>Heil Dickbutt</span>
+			<span>Snelle auto's</span>
 		</div>
 		
 		<div id="TopMenuMenuBar">

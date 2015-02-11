@@ -1,20 +1,27 @@
 body{
-	background:white;
-	margin-top:-30px;
+	background:rgb(201,230,239);
+	margin:0;
+	overflow:hidden
+}
+
+/*header*/
+#TopRow{
+	width:2000px;
+	background-color:blue;
+	height:120px;
+	position:absolute;
+	z-index:-1;
+	overflow:hidden;
 }
 
 #ScreenContainer{
-	padding-top:50px;
 	width:980px;
-	min-height:1000px;
 	margin:auto;
-	background-color:rgb(215,236,243);
-	box-shadow:0px 0px 1000px lightblue;
 }
 
 #TopMenuContainer{
-	width:750px;
-	margin:auto;
+	height:120px;	
+	padding-left:50px;
 }
 
 #TopMenuLogoImg{
@@ -30,25 +37,20 @@ body{
 }
 
 #TopMenuMenuBar{
-	background-color:blue;
-	border-radius:20px;
 	height:50px;
 	width:600px;
 	margin:auto;
-	margin-top:30px;
-	border-bottom:8px solid orange;
+	margin-left:500px;
 }
 
 #TopMenuMenuLinkFirst{
 	margin-left:75px;
-	border-left:1px solid black;
 }
 
 .TopMenuMenuLink{
 	float:left;
 	height:inherit;
 	text-decoration:none;
-	border-right:1px solid black;
 }
 
 .TopMenuMenuItem{
@@ -57,6 +59,7 @@ body{
 	color:orange;
 	padding:15px;
 	padding-bottom:12px;
+	height:20px;
 }
 
 .TopMenuMenuItem:hover{
@@ -64,19 +67,22 @@ body{
 	box-shadow:inset 5px 5px 30px blue;
 }
 
+/*footer*/
 #FooterContainer{
-	width:750px;
+	width:2000px;
+	height:1000px;
 	margin:auto;
+	background-color:blue;
+	position:fixed;
+	top:950px;
 }
 
 #Footer{
-	background-color:blue;
-	border-radius:20px;
+
 	height:20px;
 	width:600px;
 	margin:auto;
-	margin-top:30px;
-	border-top:8px solid orange;
+	
 	padding-right:10px;
 	padding-top:3px;
 }
@@ -86,3 +92,46 @@ body{
 	float:right;
 }
 
+/*sale column*/
+#SaleBack{
+	height:225px;
+	background:rgb(228,243,248);
+	width:2000;
+	position:fixed;
+	left:0;
+	z-index:-2;
+}
+
+#SaleContainer{
+	width:750px;
+	height:225px;
+	margin:auto;
+	background:rgb(201,230,239);
+	position:relative;
+	z-index:1;
+}
+
+#SaleImage{
+	width:200px;
+}
+
+#SaleTitle{
+	Color:red;
+	position:fixed;
+	top:150px;
+	left:900px;
+	font-size:35;	
+	font-weight:bold;
+}
+
+#SaleSpecs{
+	float:right;
+	margin:80px 150px 0 0;
+}
+
+/*Home content*/
+#ContentContainer{
+	width:inherit;
+	background:rgb(201,230,239);
+	box-shadow:0px -10px 50px 1px black;
+}
