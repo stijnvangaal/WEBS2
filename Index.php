@@ -11,13 +11,37 @@
 		
 	<div id="SaleBack"></div>
 	<div id="SaleContainer">
-		<img id="SaleImage" src="images/chrysler.png">
-		<span id="SaleTitle">Sale!</span>
-		<ul id="SaleSpecs">
-			<li>Naam: Chysler</li>
-			<li>500PK</li>
-			<li>80% korting</li>
-		<ul>
+		<?php			
+			include "config.inc.php";
+			$link = mysqli_connect("$DB_LOCATION", "$DB_USERNAME", "$DB_PASSWORD")
+			or die ("Can't connect to MySQL Server!");
+			$db = mysqli_select_db($link, "webs2autodb") or die("Kan database niet selecteren!");
+			
+			$query = "SELECT * FROM auto LIMIT 1";
+			$result = mysqli_query($link, $query);
+			
+			$first = mysqli_fetch_array($result);
+			
+			$URL = $first['ImageUrl'];
+			
+			echo "<img id='SaleImage' src='$URL' >";
+			
+			echo "<span id='SaleTitle'>Sale!</span>";
+			
+			$name = $first['Naam'];
+			$snelheid = $first['Topsnelheid'];
+			$prijs = $first['Prijs'];
+			
+			echo "<ul id='SaleSpecs'>
+					<li>Naam: $name</li>
+					<li>$snelheid km/h</li>
+					<li>€$prijs</li>
+				<ul>";
+		?>
+		
+		
+		
+		
 	</div>
 	
 	<div id="ContentContainer">
