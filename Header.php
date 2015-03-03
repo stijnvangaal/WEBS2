@@ -17,7 +17,7 @@
 				or die ("Can't connect to MySQL Server!");
 				$db = mysqli_select_db($link, "webs2autodb") or die("Kan database niet selecteren!");
 				
-				$query = "SELECT * FROM menu";
+				$query = "SELECT * FROM menu ORDER BY priority ASC";
 				
 				$isFirst = true;
 				
@@ -37,7 +37,6 @@
 						{
 							echo "<a href='$url' class='TopMenuMenuLink'><div class='TopMenuMenuItem'>$name</div></a>";
 						}
-						
 					}
 				}
 				
@@ -53,16 +52,6 @@
 		</div>
 		
 		-->
-		
-		<!--
-				foreach($list as &$menuItem)
-				{
-					$url = $menuItem["url"];
-					$name = $menuItem["name"];
-					
-					echo "<a href='$url' class='TopMenuMenuLink' id='TopMenuMenuLinkFirst'><div class='TopMenuMenuItem'>$name</div></a>";
-				}
-				-->
 	</div>
 	
 		
