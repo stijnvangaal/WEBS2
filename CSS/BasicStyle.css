@@ -136,6 +136,44 @@ body{
 	box-shadow:0px -10px 50px 1px black;
 }
 
+#carList{
+	border:1px solid red;
+	width:55%;
+	float:left;
+	margin-top:80px;
+	min-height:80px;
+}
+
+#longcarlist{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+#longcarlist li{
+	margin:0;
+}
+
+.singlecardiv{
+	border:1px solid green;
+	padding:0 80px 0 60px;
+}
+
+.singlecardiv table{
+	border-collapse:separate;
+}
+
+.singlecardiv .singlecarspecs{	
+	padding-left:60px;
+	width:100px
+}
+
+.singlecarimg{
+	max-height:60px;
+
+}
+
+/*admin content*/
 #Admin_head{
 	margin:auto;
 	margin-top:40px;
@@ -175,4 +213,21 @@ body{
 	text-decoration:none;
 	color:inherit;
 	font-weight:bold;
+}
+
+#container_auto_add{
+	width:55%;
+	margin:auto;
+	margin-top:50px;
+}
+
+#table_auto_add{
+	margin:auto;
+	border-collapse: separate;
+	border-spacing:30px 3px;
+}
+
+#table_auto_add td{
+	text-align:right;
+	
 }

@@ -16,7 +16,7 @@
 				<li>
 					<a href="Admin_menu.php"><div>Menu</div></a>
 				</li><li>
-					<a href="Admin_auto.php"><div>Auto's</div></a>
+					<a href="Admin_auto_add.php"><div>Auto's</div></a>
 				</li><li>
 					<a href="Admin_nieuws.php"><div>Nieuws</div></a>
 				</li>				
