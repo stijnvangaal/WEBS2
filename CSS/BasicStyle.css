@@ -113,20 +113,31 @@ body{
 
 #SaleImage{
 	width:200px;
+	max-height:180px;
+	padding-left:50px
+}
+
+#saleimage img{
+	min-width:180px;
+	max-height:180px;
+}
+
+#saleselect{
+	margin:auto;
 }
 
 #SaleTitle{
 	Color:red;
-	position:fixed;
-	top:150px;
-	left:900px;
 	font-size:35;	
 	font-weight:bold;
+	vertical-align:top;
+	text-align:center;
+	padding-top:25px;
 }
 
 #SaleSpecs{
-	float:right;
-	margin:80px 150px 0 0;
+	float:left;
+	list-style-type:none;
 }
 
 /*Home content*/
@@ -137,7 +148,7 @@ body{
 }
 
 #carList{
-	border:1px solid red;
+	border:2px solid rgb(190,210,210);
 	width:55%;
 	float:left;
 	margin-top:80px;
@@ -155,8 +166,8 @@ body{
 }
 
 .singlecardiv{
-	border:1px solid green;
-	padding:0 80px 0 60px;
+	border-bottom:2px solid rgb(200,220,220);
+	padding:0 0 0 60px;
 }
 
 .singlecardiv table{
@@ -165,11 +176,27 @@ body{
 
 .singlecardiv .singlecarspecs{	
 	padding-left:60px;
-	width:100px
 }
 
-.singlecarimg{
-	max-height:60px;
+.singlecardiv tr{
+	max-height:10px;
+}
+
+.singlecardiv td{
+	max-height:10px;
+}
+
+.singlecarselect{
+	padding-left:50px;
+}
+
+.singlecarvalue{
+	min-width:70px;
+	max-width:70px;
+}
+
+.SingleCarImage{
+	max-height:100px;
 
 }
 

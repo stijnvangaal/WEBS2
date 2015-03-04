@@ -1,17 +1,7 @@
-<html>
-	<head>
-		<link rel="stylesheet" content="text/css" href="CSS/BasicStyle.css">
-		<title>
-		 auto website product
-		 </title>
-	<head>
+<?php include_once "header.php" ?>
 	
-	<body>
-	<?php include_once "header.php" ?>
+<img src="images/camaro.png">
 	
-	<img src="images/camaro.png">
-	
-	<?php include_once "footer.php" ?>
-	</body>
-</html>
+<?php include_once "footer.php" ?>
+
 		

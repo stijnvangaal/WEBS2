@@ -1,3 +1,12 @@
+<html>
+	<head>
+	<link rel="stylesheet" content="text/css" href="CSS/BasicStyle.css">
+		<title>
+			Auto website
+		</title>
+</head>
+	
+<body>
 <div id="TopRow"></div>
 <div id="ScreenContainer">
 <!-- Header -->

@@ -7,3 +7,5 @@
 		<span>Web developers: Marthijn Verhoeven & Stijn van Gaal</span>
 	</div>
 </div>
+</body>
+</html>
