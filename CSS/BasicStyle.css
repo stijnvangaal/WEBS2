@@ -135,3 +135,44 @@ body{
 	background:rgb(201,230,239);
 	box-shadow:0px -10px 50px 1px black;
 }
+
+#Admin_head{
+	margin:auto;
+	margin-top:40px;
+	width:20%;
+}
+
+#Admin_Main_container{
+	width:55%;
+	margin:70px auto;
+}
+
+#Admin_Main_list{
+	list-style-type:none;
+	width:50%;
+	margin:auto;
+	padding:0;
+}
+
+#Admin_Main_list li{
+	margin-top:10px;
+	text-align:center;
+}
+
+#Admin_Main_list div{
+	width:100%;
+	background:rgb(210,230,230);
+	border:3px solid rgb(200, 220, 220);
+	height:30px;
+	
+}
+
+#Admin_Main_list div:hover{
+	background:rgb(200,220,220);
+}
+
+#Admin_Main_list a{
+	text-decoration:none;
+	color:inherit;
+	font-weight:bold;
+}
