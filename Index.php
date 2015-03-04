@@ -8,9 +8,6 @@
 	
 	<body>
 	<?php include_once "Header.php" ?>
-		
-	<div id="SaleBack"></div>
-	<div id="SaleContainer">
 		<?php			
 			include "config.inc.php";
 			$link = mysqli_connect("$DB_LOCATION", "$DB_USERNAME", "$DB_PASSWORD")
@@ -22,27 +19,28 @@
 			
 			$first = mysqli_fetch_array($result);
 			
-			$URL = $first['ImageUrl'];
+			if($first != NULL){
+				$URL = $first['ImageUrl'];
 			
-			echo "<img id='SaleImage' src='$URL' >";
+				echo "<div id='SaleBack'></div>
+					<div id='SaleContainer'>
+					<img id='SaleImage' src='$URL' >";
 			
-			echo "<span id='SaleTitle'>Sale!</span>";
+				echo "<span id='SaleTitle'>Sale!</span>";
 			
-			$name = $first['Naam'];
-			$snelheid = $first['Topsnelheid'];
-			$prijs = $first['Prijs'];
+				$name = $first['Naam'];
+				$snelheid = $first['Topsnelheid'];
+				$prijs = $first['Prijs'];
 			
-			echo "<ul id='SaleSpecs'>
-					<li>Naam: $name</li>
-					<li>$snelheid km/h</li>
-					<li>€$prijs</li>
-				<ul>";
+				echo "<ul id='SaleSpecs'>
+						<li>Naam: $name</li>
+						<li>$snelheid km/h</li>
+						<li>€$prijs</li>
+						<ul>";
+				
+				echo "</div>";
+			}
 		?>
-		
-		
-		
-		
-	</div>
 	
 	<div id="ContentContainer">
 	

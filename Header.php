@@ -25,8 +25,8 @@
 				{
 					while($row = mysqli_fetch_assoc($result))
 					{
-						$url = $row["url"];
-						$name = $row["name"];
+						$url = $row["Url"];
+						$name = $row["Name"];
 						
 						if($isFirst)
 						{
@@ -37,6 +37,7 @@
 						{
 							echo "<a href='$url' class='TopMenuMenuLink'><div class='TopMenuMenuItem'>$name</div></a>";
 						}
+						
 					}
 				}
 				
@@ -52,6 +53,16 @@
 		</div>
 		
 		-->
+		
+		<!--
+				foreach($list as &$menuItem)
+				{
+					$url = $menuItem["url"];
+					$name = $menuItem["name"];
+					
+					echo "<a href='$url' class='TopMenuMenuLink' id='TopMenuMenuLinkFirst'><div class='TopMenuMenuItem'>$name</div></a>";
+				}
+				-->
 	</div>
 	
 		

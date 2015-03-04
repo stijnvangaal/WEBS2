@@ -1,5 +1,5 @@
 body{
-	background:rgb(201,230,239);
+	background:rgb(230,250,255);
 	margin:0;
 	overflow:hidden
 }
@@ -63,8 +63,8 @@ body{
 }
 
 .TopMenuMenuItem:hover{
-	background: rgb(80,80,255);
-	box-shadow:inset 5px 5px 30px blue;
+	border-bottom:5px solid rgb(80,80,255);
+	
 }
 
 /*footer*/
@@ -95,7 +95,7 @@ body{
 /*sale column*/
 #SaleBack{
 	height:225px;
-	background:rgb(228,243,248);
+	background:rgb(238,253,255);
 	width:2000;
 	position:fixed;
 	left:0;
@@ -106,7 +106,7 @@ body{
 	width:750px;
 	height:225px;
 	margin:auto;
-	background:rgb(201,230,239);
+	background:rgb(220,243,245);
 	position:relative;
 	z-index:1;
 }
