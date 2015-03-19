@@ -42,9 +42,7 @@
 <?php include_once "Header.php" ?>
 	
 	<div id="ContentContainer">
-		 
-		<h1>Menu item aanpassen</h1>
-		 
+		
 		<form action='#' method='post' border='0'>
 			<table>
 			

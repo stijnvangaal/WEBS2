@@ -2,8 +2,6 @@
 	
 	<div id="ContentContainer">
 	
-		<h1>Menu list</h1>
-		
 		<table border=1 style="border-collapse: collapse">
 	
 			<?php
@@ -38,8 +36,7 @@
 					echo "</tr>";
 				}
 			?>
-			
-			<tr border=0>
+				<tr border=0>
 				<td border=0 colspan="4">
 					<form method="get" action="Admin_menu_add.php">
 						<button type="submit">Add new</button>

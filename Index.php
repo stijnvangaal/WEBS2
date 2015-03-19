@@ -1,54 +1,61 @@
-<?php include_once "Header.php" ?>
-	<?php			
-		include "config.inc.php";
-		$link = mysqli_connect("$DB_LOCATION", "$DB_USERNAME", "$DB_PASSWORD")
-		or die ("Can't connect to MySQL Server!");
-		$db = mysqli_select_db($link, "webs2autodb") or die("Kan database niet selecteren!");
-		
-		$query = "SELECT * FROM auto LIMIT 1";
-		$result = mysqli_query($link, $query);
-		
-		$first = mysqli_fetch_array($result);
-		
-		if($first != NULL){
-			$URL = $first['ImageUrl'];
-		
-			echo "<div id='SaleBack'></div>
-				<table id='SaleContainer'>
-				<tr>
-				<td id='SaleImage'><img src='Images/$URL' ></td>";
-		
-			echo "<td id='saletitle'><span>Sale!</span></td>";
-		
-			$id			= $first['ID'];
-			$name 		= $first['Naam'];
-			$snelheid 	= $first['Topsnelheid'];
-			$prijs 		= $first['Prijs'];
-		
-			echo "<td id='salespecsbox'><ul id='SaleSpecs'>
-					<li><b>$name</b></li>
-					<li>$snelheid km/h</li>
-					<li><u>€$prijs</u></li>
-					<ul></td>";
-			
-			echo "</tr>
-			<tr>
-				<td></td>
-				<td align='center'><form  id='saleselect' action='product.php' method='GET'>
-				<input type='hidden' name='id' value='$id'>
-				<input type='submit' value='bekijk'>
-				</form></td>
-			</tr>
-			</table>";
-		}
-	?>
+<?php
+//model
+include "model/Database.php";
+$saleCar = get_sale_car();
+$result = get_all_cars();
 
-<div id="ContentContainer">
-	<div id='carList'>
-	<?php
-		$query = "SELECT * FROM auto";
-		$result = mysqli_query($link, $query);
+
+
+
+
+
+
+
+//controller
+
+
+
+
+
+//view
+
+include_once "Header.php";
+if($saleCar != NULL){
+	$saleCarUrl		= $saleCar['ImageUrl'];
+	$saleCarId		= $saleCar['ID'];
+	$saleCarName	= $saleCar['Naam'];
+	$saleCarspeed 	= $saleCar['Topsnelheid'];
+	$saleCarprijs 	= $saleCar['Prijs'];
 	
+	echo "
+	<div id='SaleBack'></div>
+	<table id='SaleContainer'>
+		<tr>
+			<td id='SaleImage'><img src='Images/$saleCarUrl' ></td>
+			<td id='saletitle'><span>Sale!</span></td>
+			<td id='salespecsbox'><ul id='SaleSpecs'>
+				<li><b>$saleCarName</b></li>
+				<li>$saleCarspeed km/h</li>
+				<li><u>€$saleCarprijs</u></li>
+				<ul>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align='center'><form  id='saleselect' action='product.php' method='GET'>
+			<input type='hidden' name='id' value='$saleCarId'>
+			<input type='submit' value='bekijk'>
+			</form>
+			</td>
+		</tr>
+	</table>";
+}
+
+
+echo "<div id='ContentContainer'>";
+echo "<div id='carList'>";
+	
+
 		if($result->num_rows == 0){
 			echo "no content to show";
 		}
