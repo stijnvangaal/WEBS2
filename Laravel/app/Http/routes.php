@@ -11,4 +11,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', function(){
+
+    $controller = new \App\Http\Controllers\HomeController();
+    return $controller->index();
+});
