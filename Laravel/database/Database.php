@@ -1,5 +1,5 @@
 <?php
-namespace database;
+namespace Database;
 
 class Database
 {
@@ -35,4 +35,12 @@ class Database
         }
         return Database::$database;
     }
+}
+
+FUNCTION get_sale_car()
+{
+    $query = "SELECT * FROM auto LIMIT 1";
+    $result = mysqli_query($this->link, $query);
+
+    return mysqli_fetch_array($result);
 }

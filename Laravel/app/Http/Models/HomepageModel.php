@@ -6,14 +6,17 @@
  * Time: 13:10
  */
 namespace App\Http\Models;
+
+
 use database\Database;
 
 class HomepageModel{
 
     function getContent(){
-        $db = Database::getDatabase();
+        /*$db = new \database\Database();
         $data['SaleCar'] = $db->get_sale_car();
-        $data['AllCars'] = $db->get_all_cars();
+        $data['AllCars'] = $db->get_all_cars();*/
+        $data['SaleCar'] = Database::get_saleCar();
         return $data;
     }
 }

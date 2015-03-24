@@ -10,9 +10,14 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Illuminate\Database\Eloquent\Model;
 
-Route::get('/', function(){
 
-    $controller = new \App\Http\Controllers\HomeController();
-    return $controller->index();
-});
+Route::get('/', 'HomeController@index');
+//Route::get('/', function(){
+//
+//    /*$controller = new \App\Http\Controllers\HomeController();*/
+//    $data['SingleCar'] = 'App'/auto::find(2);
+//    $data['AllCars'] = array(model/auto::find(2));
+//    return view::make('index', $data);
+//});

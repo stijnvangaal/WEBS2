@@ -56,13 +56,25 @@ return [
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'database'  => 'webs2autodb',
-			'username'  => 'sjjgaal',
+			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 			'strict'    => false,
 		],
+//        won't work
+//        'mysql' => [
+//            'driver'    => 'mysql',
+//            'host'      => 'database.aii.avans.nl',
+//            'database'  => 'sjjgaal_db',
+//            'username'  => 'sjjgaal',
+//            'password'  => 'Ab12345',
+//            'charset'   => 'utf8',
+//            'collation' => 'utf8_unicode_ci',
+//            'prefix'    => '',
+//            'strict'    => false,
+//        ],
 
 		'pgsql' => [
 			'driver'   => 'pgsql',

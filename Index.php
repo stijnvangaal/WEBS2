@@ -1,19 +1,16 @@
 <?php
-//model
 
 $saleCar = $SaleCar;
-$result = $AllCars;
-
 
 include_once "Header.php";
+$saleCar = $saleCar->first();
 if($saleCar != NULL){
-	$saleCarUrl		= $saleCar['ImageUrl'];
-	$saleCarId		= $saleCar['ID'];
-	$saleCarName	= $saleCar['Naam'];
-	$saleCarspeed 	= $saleCar['Topsnelheid'];
-	$saleCarprijs 	= $saleCar['Prijs'];
-	
-	echo "
+    $saleCarUrl		= $saleCar['ImageUrl'];
+    $saleCarId		= $saleCar['ID'];
+    $saleCarName	= $saleCar->Naam;
+    $saleCarspeed 	= $saleCar['Topsnelheid'];
+    $saleCarprijs 	= $saleCar['Prijs'];
+    echo "
 	<div id='SaleBack'></div>
 	<table id='SaleContainer'>
 		<tr>
@@ -40,21 +37,20 @@ if($saleCar != NULL){
 
 echo "<div id='ContentContainer'>";
 echo "<div id='carList'>";
-	
 
-		if($result->num_rows == 0){
-			echo "no content to show";
-		}
-		else{
-			echo "<ul id='longCarList'>";
-			while($row = mysqli_fetch_assoc($result)){
-			$id = $row['ID'];
-			$naam = $row['Naam'];
-			$prijs = $row['Prijs'];
-			$bouwjaar = $row['Bouwjaar'];
-			$imageUrl = $row['ImageUrl'];
-				echo "<li><div class='SingleCarDiv'>
-				
+if($AllCars->num_rows == 0){
+    echo "no content to show";
+}
+else{
+    echo "<ul id='longCarList'>";
+    while($row = mysqli_fetch_assoc($result)){
+        $id = $row['ID'];
+        $naam = $row['Naam'];
+        $prijs = $row['Prijs'];
+        $bouwjaar = $row['Bouwjaar'];
+        $imageUrl = $row['ImageUrl'];
+        echo "<li><div class='SingleCarDiv'>
+
 				<table cellspacing='0'>
 					<tr>
 						<td rowspan='3'><img src='Images/$imageUrl' class='SingleCarImage'></td>
@@ -62,7 +58,7 @@ echo "<div id='carList'>";
 						<td class='singlecarvalue'>$naam</td>
 					</tr>
 					<tr>
-						
+
 						<td class='singlecarspecs'>Prijs</td>
 						<td class='singlecarvalue'>$prijs</td>
 						<td class='singlecarselect'><form action='product.php' method='GET'>
@@ -71,17 +67,17 @@ echo "<div id='carList'>";
 						</form></td>
 					</tr>
 					<tr>
-						
+
 						<td class='singlecarspecs'>Bouwjaar</td>
 						<td class='singlecarvalue'>$bouwjaar</td>
 					</tr>
-						
+
 					</table>
 				</div></li>";
-			}
-		}
-	?>
-	</div>
+    }
+}
+?>
+</div>
 </div>
 
 <?php include_once "Footer.php" ?>

@@ -8,6 +8,8 @@
  
 namespace App\Http\Controllers;
 
+use App\auto;
+use App\Type;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 
@@ -16,9 +18,10 @@ class HomeController extends Controller
 
 
     public function index(){
-        $model = new \App\Http\Models\HomepageModel();
-        $data = $model->getContent();
+        $model['SaleCar'] = auto::find(1);
+        $model['AllCars'] = auto::get();
+        $model['Type'] = type::find(1);
 
-        return View::make('index', $data);
+        return view('index', $model);
     }
 }
