@@ -64,7 +64,15 @@ body{
 
 .TopMenuMenuItem:hover{
 	border-bottom:5px solid rgb(80,80,255);
-	
+}
+
+/*BreadCrumb*/
+#BreadCrumb{
+    color:orange;
+    background:rgb(220,243,245);
+    margin:auto;
+    max-width: 200px;
+    position: relative;
 }
 
 /*footer*/
@@ -141,8 +149,7 @@ body{
 /*Home content*/
 #ContentContainer{
 	width:inherit;
-	background:rgb(201,230,239);
-	box-shadow:0px -10px 50px 1px black;
+    padding-top:50px;
 }
 
 #carList{
@@ -284,11 +291,34 @@ body{
     margin:auto;
     margin-top:50px;
     width:50%;
+    overflow-y:scroll;
+    max-height: 460px;
 }
 
 .UserEmptyBuys{
     margin:auto;
     margin-top: 80px;
     width:150px;
+    font-weight: bold;
+}
+
+#OrderTable{
+    border-collapse: separate;
+    border-spacing: 0px 5px;
+}
+
+#OrderTable th{
+    text-align: right;
+    border-bottom: 2px solid black;
+}
+
+#OrderTable td{
+    text-align: right;
+    border-bottom: 1px solid black;
+}
+
+#OrderTable #OrderTotal td{
+    border-top:1px solid black;
+    border-bottom: 0;
     font-weight: bold;
 }

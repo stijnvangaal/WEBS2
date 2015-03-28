@@ -1,8 +1,17 @@
 @include("Header")
+<div id="BreadCrumb">
+    <?php $crumbs = explode("/",$_SERVER["REQUEST_URI"]);
+    foreach($crumbs as $crumb){
+        echo ucfirst(str_replace(array(".php","_"),array(""," "),$crumb) . '>');
+    }?>
+</div>
 
 @if($AllCars != NULL)
     @if (count($AllCars) > 0)
         <div id='ContentContainer'>
+            <a href={{URL::to('Order')}}>Kopen</a>
+            <hr>
+            <p>Totaal €{{$TotalPrice}}</p>
             <div id='carList'>
                 <ul id='longCarList'>
         @foreach($AllCars as $Car)
@@ -38,6 +47,7 @@
         </div>
     @endif
 @else
+
     <div class="ErrorMessage">
         <p>Geen Auto's in winkelwagen</p>
     </div>

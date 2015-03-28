@@ -1,4 +1,8 @@
-<?php $user = $_SESSION['CurrentUser'];?>
+<?php
+$user = NULL;
+if(array_key_exists('CurrentUser',$_SESSION)){
+    $user = $_SESSION['CurrentUser'];
+}?>
 <html>
 <head>
     <link rel="stylesheet" content="text/css" href="/Laravel/public/basicstyle.css">
@@ -21,38 +25,13 @@
 		</div>
 
 		<div id="TopMenuMenuBar">
-			<?php
-                $link = mysqli_connect("databases.aii.avans.nl", "sjjgaal", "Ab12345")
-				or die ("Can't connect to MySQL Server!");
-				$db = mysqli_select_db($link, "sjjgaal_db") or die("Kan database niet selecteren!");
-
-				$query = "SELECT * FROM menus ORDER BY priority ASC";
-
-				$isFirst = true;
-
-				if ($result = mysqli_query($link, $query))
-				{
-					while($row = mysqli_fetch_assoc($result))
-					{
-						$url = $row["Url"];
-						$name = $row["Name"];
-
-						if($isFirst)
-						{
-							?><a href={{URL::to($url)}} class='TopMenuMenuLink' id='TopMenuMenuLinkFirst'><div class='TopMenuMenuItem'>{{$name}}</div></a><?php
-							$isFirst = false;
-						}
-						else
-						{
-							?><a href={{URL::to($url)}} class='TopMenuMenuLink'><div class='TopMenuMenuItem'>{{$name}}</div></a><?php
-						}
-
-					}
-				}
 
 
-			?>
+
+            <a href={{URL::to("/")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Home</div></a>
+            <a href={{URL::to("Webshop")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Webshop</div></a>
             <a href={{URL::to("Cart")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Winkelwagen</div></a>
+            <a href={{URL::to("About")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">About</div></a>
 
                 @if($user != NULL)
                     <a href={{URL::to("User")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">{{$user['Naam']}}</div></a>

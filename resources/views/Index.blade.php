@@ -20,8 +20,14 @@
         </tr>
     </table>
 @endif
-
+<div id="BreadCrumb">
+    <?php $crumbs = explode("/",$_SERVER["REQUEST_URI"]);
+    foreach($crumbs as $crumb){
+        echo ucfirst(str_replace(array(".php","_"),array(""," "),$crumb) . '>');
+    }?>
+</div>
 <div id='ContentContainer'>
+
             <div id='carList'>
         @if (Count($AllCars) >= 1)
             <ul id='longCarList'>

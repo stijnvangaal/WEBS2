@@ -14,13 +14,20 @@
 Route::get('/', 'HomeController@index');
 Route::get('About', 'HomeController@about');
 
+Route::get('/Webshop', 'UserController@Webshop');
 Route::get('/car/{ID}', 'HomeController@Car');
 
 Route::get('Cart', 'UserController@Cart');
 Route::get('DeleteFromCart/{ID}', 'UserController@DeleteFromCart');
 Route::get('AddToCart/{ID}', 'UserController@AddToCart');
 
+Route::get('Order', 'UserController@Order');
+Route::get('DoCheckOut', 'UserController@DoCheckOut');
+
 Route::get('Login', 'UserController@Login');
 Route::get('User', 'UserController@Userpage');
 Route::post('User', 'UserController@DoLogin');
 Route::get('Logout', 'UserController@DoLogOut');
+
+Route::get('Register', 'UserController@Register');
+Route::post('Register', 'UserController@DoRegister');

@@ -1,12 +1,19 @@
 @include('Header')
 
 <div class="DetailsContainer">
+    <div id="BreadCrumb">
+        <?php $crumbs = explode("/",$_SERVER["REQUEST_URI"]);
+        foreach($crumbs as $crumb){
+            echo ucfirst(str_replace(array(".php","_"),array(""," "),$crumb) . '>');
+        }?>
+    </div>
     <div class="DetailsImageDiv">
         <img class="DetailsImage" src='/laravel/public/Images/{{$Car->ImageUrl}}'>
     </div>
     <div class="DetailsSpecs">
         <h3>{{$Car->Naam or 'Geen naam gegeven'}}</h3>
-        <p>Beschrijving:    {{$Car->Beschrijving or ''}}</p>
+        <p>Korte beschrijving:    {{$Car->BeschrijvingKort or ''}}</p>
+        <p>Lange beschrijving:    {{$Car->BeschrijvingLang or ''}}</p>
         <p>Prijs:           €{{$Car->Prijs or '-'}}</p>
         <p>Topsnelheid:     {{$Car->Topsnelheid or '-'}} km/h</p>
         <p>Kleur:           {{$Car->Kleur or ''}}</p>

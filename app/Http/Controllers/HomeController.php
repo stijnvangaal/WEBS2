@@ -21,10 +21,20 @@ class HomeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $SaleCar = auto::find(1);
+        $SaleCar = auto::where('IsSale', '=' , '1')->get()->first();
         $model['SaleCar'] = $SaleCar;
-        $model['AllCars'] = auto::get();
-        $model['Type'] = type::find($SaleCar->ID);
+        $AllCars = auto::get();
+        $i = 0;
+        $model['AllCars'] = array();
+        foreach($AllCars as $Car){
+            if($i != 4){
+                array_push($model['AllCars'], $Car);
+            }
+            else{
+                break;
+            }
+            $i++;
+        }
 
         return view('index', $model);
     }
