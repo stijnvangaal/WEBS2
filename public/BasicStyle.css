@@ -38,9 +38,9 @@ body{
 
 #TopMenuMenuBar{
 	height:50px;
-	width:600px;
+	width:700px;
 	margin:auto;
-	margin-left:500px;
+	margin-left:350px;
 }
 
 #TopMenuMenuLinkFirst{
@@ -204,7 +204,6 @@ body{
 
 .SingleCarImage{
 	max-height:100px;
-
 }
 
 /*admin content*/
