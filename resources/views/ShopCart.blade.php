@@ -22,15 +22,30 @@
                             <td rowspan='3'><img src='Images/{{$Car->ImageUrl}}' class='SingleCarImage'></td>
                             <td class='singlecarspecs'>Naam:</td>
                             <td class='singlecarvalue'>{{$Car->Naam}}</td>
+                            <td class='singlecarspecs'>Aantal: </td>
+                            <td class='singlecarvalue'>{{$Car->Amount}}</td>
                         </tr>
                         <tr>
 
                             <td class='singlecarspecs'>Prijs</td>
                             <td class='singlecarvalue'>{{$Car->Prijs}}</td>
+                            <form method="POST" action="{{action('UserController@ChangeCartAmount')}}">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="ID" value="{{$Car->ID}}">
+                                <td class='singlecarspecs'><select name="Amount">
+                                        @for($i = 1; $i <=9; $i++)
+                                            @if($Car->Amount == $i)
+                                                <option value="{{$i}}" selected="selected">{{$i}}</option>
+                                            @else
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endif
+                                        @endfor
+                                    </select></td>
+                                <td class='singlecarvalue'><input type="submit" value="verander"></td>
+                            </form>
                             <td class='singlecarselect'> <a href="{{URL::to("DeleteFromCart/$Car->ID")}}">Verwijder</a></td>
                         </tr>
                         <tr>
-
                             <td class='singlecarspecs'>Bouwjaar</td>
                             <td class='singlecarvalue'>{{$Car->Bouwjaar}}</td>
                         </tr>

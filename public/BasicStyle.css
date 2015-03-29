@@ -150,6 +150,8 @@ body{
 #ContentContainer{
 	width:inherit;
     padding-top:50px;
+    height: 750px;
+    overflow-y: auto;
 }
 
 #carList{
@@ -321,4 +323,43 @@ body{
     border-top:1px solid black;
     border-bottom: 0;
     font-weight: bold;
+}
+
+#ShopTypeTree{
+    box-shadow: 2px 2px 5px  #131313;
+    max-width: 400px;
+    min-width: 300px;
+    float: left;
+    overflow: auto;
+
+}
+
+#ShopTypeTree ul a, #ShopTypeTree li {
+    color: orange;
+    list-style: none;
+}
+
+#ShopCarList{
+    float:right;
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+    height:8px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb:vertical {
+    height:100px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px #000000;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    width:10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px #000000;
 }

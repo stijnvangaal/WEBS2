@@ -15,7 +15,7 @@ use Illuminate\Http\Response;
 
 
 class UserController extends Controller{
-
+//      Webshop functions
     public function Webshop(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -28,10 +28,51 @@ class UserController extends Controller{
                 array_push($SortedTypes, $type);
             }
         }
-        $data['Types'] = $this->nested2ul($SortedTypes);
+
+        $data['AllCars'] = auto::get();
+        $data['Types'] = "<div id='ShopTypeTree'>" . $this->nested2ul($SortedTypes) . "</div>";
         return view('Webshop', $data);
     }
 
+    public function WebshopSelection($selection){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $AllTypes = Type::get();
+        $SortedTypes = array();
+        foreach($AllTypes as $type){
+            if($type['ParentId'] == NULL || $type['ParentId'] == 0){
+                $type['children'] = $this->getChildren($type->ID, $AllTypes);
+                array_push($SortedTypes, $type);
+            }
+        }
+        foreach($AllTypes as $type){
+            if($type['Naam'] == $selection){
+                $selectedType = $type;
+                break;
+            }
+        }
+        $allCars = array();
+        $selectedType['children'] = $this->getChildren($selectedType->ID, $AllTypes);
+        $data['AllCars'] = $this->getChildrenCars($selectedType, $allCars);
+        $data['Types'] = "<div id='ShopTypeTree'>" . $this->nested2ul($SortedTypes) . "</div>";
+        return view('Webshop', $data);
+    }
+
+    public function getChildrenCars($Type, $allCars){
+        $theseCars = auto::where('Types_ID', '=', $Type['ID'])->get();
+        foreach($theseCars as $car) {
+            array_push($allCars, $car);
+        }
+        $childs = $Type['children'];
+            foreach ($childs as $child) {
+                $allCars = $this->getChildrenCars($child, $allCars);
+            }
+
+        return $allCars;
+    }
+
+//    get the children for the type tree
     public function getChildren($parentID, $fullList){
         $children = array();
         foreach($fullList as $type){
@@ -42,15 +83,17 @@ class UserController extends Controller{
         }
         return $children;
     }
-
+//    set the type tree into one string to echo
     public function nested2ul($data) {
         $result = array();
 
         if (sizeof($data) > 0) {
-            $result[] = '<ul>';
+
+            $result[] = "<ul>";
             foreach ($data as $entry) {
                 $result[] = sprintf(
-                    '<li>%s %s</li>',
+                    $entry['Naam'] .
+                    "<li>%s %s</li>",
                     $entry['Naam'],
                     $this->nested2ul($entry['children'])
                 );
@@ -58,7 +101,7 @@ class UserController extends Controller{
             $result[] = '</ul>';
         }
 
-        return implode($result);
+        return implode('_',$result);
     }
 
 //    cart buy stuff
@@ -69,12 +112,15 @@ class UserController extends Controller{
         $AllCars = array();
         $data['TotalPrice'] = 0;
         if(array_key_exists('CartItems',$_SESSION) && !empty($_SESSION['CartItems'])) {
-            $AllCarsID = $_SESSION['CartItems'];
-            if(count($AllCarsID) > 0) {
-                foreach ($AllCarsID as $CarID) {
-                    $Car = auto::find($CarID);
-                    $data['TotalPrice'] += $Car->Prijs;
-                    array_push($AllCars, $Car);
+            $AllCarsTemp = $_SESSION['CartItems'];
+            if(count($AllCarsTemp) > 0) {
+                foreach ($AllCarsTemp as $Car) {
+                    $id = $Car->Auto_ID;
+                    $amount = $Car->Aantal;
+                    $tempCar = auto::find($id);
+                    $data['TotalPrice'] += $tempCar->Prijs * $amount;
+                    $tempCar->Amount = $amount;
+                    array_push($AllCars, $tempCar);
                 }
             }
         }
@@ -86,7 +132,10 @@ class UserController extends Controller{
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $_SESSION['CartItems'][] = $ToAdd;
+        $add = new bestelling;
+        $add->Auto_ID = $ToAdd;
+        $add->Aantal = 1;
+        $_SESSION['CartItems'][] = $add;
         return redirect()->to('Cart');
     }
 
@@ -94,9 +143,13 @@ class UserController extends Controller{
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(($key = array_search($toDelete, $_SESSION['CartItems'])) !== false) {
-            unset($_SESSION['CartItems'][$key]);
+        foreach($_SESSION['CartItems'] as $item){
+            if($item->Auto_ID == $toDelete){
+                $x = array_search($item, $_SESSION['CartItems']);
+                unset($_SESSION['CartItems'][$x]);
+            }
         }
+
         return redirect()->to('Cart');
     }
 
@@ -109,17 +162,19 @@ class UserController extends Controller{
         }
         $data['User'] = $_SESSION['CurrentUser'];
 
-        $AllCars = array();
+        $AllCarslist = array();
         $data['TotalPrice'] = 0;
         if(array_key_exists('CartItems',$_SESSION) && !empty($_SESSION['CartItems'])) {
-            $AllCarsID = $_SESSION['CartItems'];
-            foreach($AllCarsID as $CarID){
-                $Car = auto::find($CarID);
-                $data['TotalPrice'] += $Car->Prijs;
-                array_push($AllCars,$Car);
+            $AllCars = $_SESSION['CartItems'];
+            foreach($AllCars as $tempCar){
+                $id = $tempCar->Auto_ID;
+                $Car = auto::find($id);
+                $Car->Aantal = $tempCar->Aantal;
+                $data['TotalPrice'] += $Car->Prijs * $Car->Aantal;
+                array_push($AllCarslist,$Car);
             }
         }
-        $data['AllCars'] = $AllCars;
+        $data['AllCars'] = $AllCarslist;
         return view('Order', $data);
     }
 
@@ -131,16 +186,35 @@ class UserController extends Controller{
         $AllCars = $_SESSION['CartItems'];
         foreach($AllCars as $Car){
             $temp = new Bestelling;
-            $temp->Auto_ID = $Car;
+            $temp->Auto_ID = $Car->Auto_ID;
             $temp->User_ID = $user->ID;
             $temp->Datum = date('Y-m-d H:i:s');
-            $temp->Aantal = 1;
+            $temp->Aantal = $Car->Aantal;
             $temp->timestamps=false;
             $temp->Save();
         }
         $_SESSION['CartItems'] = NULL;
 
         return redirect()->to('User');
+    }
+
+    public function ChangeCartAmount(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if($request['Amount']!= null){
+            foreach($_SESSION['CartItems'] as $item){
+                if($item->Auto_ID == $request['ID']){
+                    $x = array_search($item, $_SESSION['CartItems']);
+                    unset($_SESSION['CartItems'][$x]);
+                    $add = new bestelling;
+                    $add->Auto_ID = $item->Auto_ID;
+                    $add->Aantal = $request['Amount'];
+                    $_SESSION['CartItems'][] = $add;
+                }
+            }
+        }
+        return redirect()->to('Cart');
     }
 
 //    user stuff
@@ -186,7 +260,7 @@ class UserController extends Controller{
             session_start();
         }
         $data['User'] = $_SESSION['CurrentUser'];
-        $data['Buys'] = Bestelling::where('User_ID', '=', $data['User']['ID'])->get();
+        $data['Buys'] = Bestelling::where('User_ID', '=', $data['User']['ID'])->orderBy("Datum", "desc")->get();
         if($data['Buys'] != NULL){
 //            $cars = array();
             foreach($data['Buys'] as $Car){

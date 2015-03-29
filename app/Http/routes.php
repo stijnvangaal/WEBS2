@@ -15,9 +15,11 @@ Route::get('/', 'HomeController@index');
 Route::get('About', 'HomeController@about');
 
 Route::get('/Webshop', 'UserController@Webshop');
+Route::get('/Webshop/{ID}', 'UserController@WebshopSelection');
 Route::get('/car/{ID}', 'HomeController@Car');
 
 Route::get('Cart', 'UserController@Cart');
+Route::post('Cart', 'UserController@ChangeCartAmount');
 Route::get('DeleteFromCart/{ID}', 'UserController@DeleteFromCart');
 Route::get('AddToCart/{ID}', 'UserController@AddToCart');
 
