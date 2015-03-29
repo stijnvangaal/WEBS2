@@ -232,7 +232,10 @@ class UserController extends Controller{
         $user = Gebruiker::Where('Naam', '=', $request['UserName'])->get()->first();
         if($user !=NULL){
             if($user['Naam'] == $request['UserName']){
-                if($user['Wachtwoord'] == $request['Password']) {
+                $userPass = $user['Wachtwoord'];
+                $typedPass = $request['Password'];
+                $salt = substr($userPass, 13, 10);
+                if( crypt($typedPass, $salt) . $salt== $userPass) {
                     $_SESSION['CurrentUser'] = $user;
                     return redirect()->to('User');
                 }
@@ -288,7 +291,8 @@ class UserController extends Controller{
                 if(strlen($request['UserName']) >= 4 && strlen($request['UserName']) < 17){
                     $new = new gebruiker;
                     $new->Naam = $request['UserName'];
-                    $new->Wachtwoord = $request['Password'];
+                    $salt = $this->generateRandomString();
+                    $new->Wachtwoord = crypt($request['Password'], $salt) . $salt;
                     $new->timestamps=false;
                     $new->Rol='Gebruiker';
                     $new->Save();
@@ -302,5 +306,15 @@ class UserController extends Controller{
         }
         else{ $Error = "Deze gebruikers naam bestaat al"; }
         return redirect()->back()->withErrors([$Error, 'msg']);
+    }
+    
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!./,';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
