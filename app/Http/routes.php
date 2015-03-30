@@ -33,3 +33,7 @@ Route::get('Logout', 'UserController@DoLogOut');
 
 Route::get('Register', 'UserController@Register');
 Route::post('Register', 'UserController@DoRegister');
+
+Route::resource('AdminCars', 'AdminCarsController');
+//Route::get('AdminCars', 'AdminCarsController@index');
+//Route::post('AdminCars/destroy/{id}', 'AdminCarsController@destroy');

@@ -5,7 +5,7 @@ if(array_key_exists('CurrentUser',$_SESSION)){
 }?>
 <html>
 <head>
-    <link rel="stylesheet" content="text/css" href="/laravel/public/BasicStyle.css">
+    <link rel="stylesheet" content="text/css" href="/Laravel/public/BasicStyle.css">
 
     <title>
         Auto website
