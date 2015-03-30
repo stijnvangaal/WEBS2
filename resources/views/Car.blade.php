@@ -8,7 +8,13 @@
         }?>
     </div>
     <div class="DetailsImageDiv">
-        <img class="DetailsImage" src='/laravel/public/Images/{{$Car->ImageUrl}}'>
+        <form method="POST" action="{{action('HomeController@BigPicture')}}">
+            <?php $CurrentUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']; ?>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="PrevUrl" value="{{$CurrentUrl}}">
+                <input type="hidden" name="ImageUrl" value="{{$Car->ImageUrl}}">
+                <input type="image" class="DetailsImage" src="/laravel/public/Images/{{$Car->ImageUrl}}" alt="Submit Form" />
+        </form>
     </div>
     <div class="DetailsSpecs">
         <h3>{{$Car->Naam or 'Geen naam gegeven'}}</h3>

@@ -222,6 +222,9 @@ class UserController extends Controller{
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        if(array_key_exists('CurrentUser',$_SESSION) && !empty($_SESSION['CurrentUser'])){
+            return redirect()->to('User');
+        }
         return view('Login');
     }
 
@@ -262,6 +265,9 @@ class UserController extends Controller{
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        if(!array_key_exists('CurrentUser',$_SESSION) || empty($_SESSION['CurrentUser'])){
+            return redirect()->to('Login');
+        }
         $data['User'] = $_SESSION['CurrentUser'];
         $data['Buys'] = Bestelling::where('User_ID', '=', $data['User']['ID'])->orderBy("Datum", "desc")->get();
         if($data['Buys'] != NULL){
@@ -277,6 +283,9 @@ class UserController extends Controller{
     public Function Register(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
+        }
+        if(array_key_exists('CurrentUser',$_SESSION) && !empty($_SESSION['CurrentUser'])){
+            return redirect()->to('User');
         }
         return view('Register');
     }

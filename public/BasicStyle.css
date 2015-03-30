@@ -206,6 +206,10 @@ body{
 	max-height:100px;
 }
 
+.BigPicture{
+    width: 40%;
+}
+
 /*admin content*/
 #Admin_head{
 	margin:auto;

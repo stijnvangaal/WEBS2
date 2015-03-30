@@ -12,6 +12,7 @@ use App\auto;
 use App\Type;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -54,5 +55,14 @@ class HomeController extends Controller
         $model['Car'] = $Car;
         $model['Type'] = type::find($Car->ID);
         return view('Car', $model);
+    }
+
+    public function BigPicture(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $data['Image'] = $request['ImageUrl'];
+        $data['Prev'] = $request['PrevUrl'];
+        return view('BigPicture', $data);
     }
 }

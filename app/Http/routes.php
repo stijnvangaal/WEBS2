@@ -17,6 +17,7 @@ Route::get('About', 'HomeController@about');
 Route::get('/Webshop', 'UserController@Webshop');
 Route::get('/Webshop/{ID}', 'UserController@WebshopSelection');
 Route::get('/car/{ID}', 'HomeController@Car');
+Route::post('/car/BigPicture','HomeController@BigPicture');
 
 Route::get('Cart', 'UserController@Cart');
 Route::post('Cart', 'UserController@ChangeCartAmount');
