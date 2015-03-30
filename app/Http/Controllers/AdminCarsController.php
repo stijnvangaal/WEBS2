@@ -5,6 +5,11 @@ use App\auto;
 use App\Type;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AdminCarsController extends Controller
 {
@@ -37,7 +42,17 @@ class AdminCarsController extends Controller
             session_start();
         }
 
-    return view::make('Admin.CarCreate');
+    $AllTypes = Type::get();
+    $SortedTypes = array();
+
+    foreach($AllTypes as $type){
+      if($type['ParentId'] != NULL || $type['ParentId'] != 0)
+      {
+          array_push($SortedTypes, $type);
+      }
+    }
+
+    return view::make('Admin.CarCreate', $SortedTypes);
   }
 
   /**
@@ -45,7 +60,8 @@ class AdminCarsController extends Controller
    *
    * @return Response
    */
-  public function store()
+
+  public function store(Request $request)
   {
     if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -53,14 +69,33 @@ class AdminCarsController extends Controller
 
 	$input = Input::all();
 	
-	$v = Validate::make('$input', auto::$rules);
+  $inputAuto = array($input);
+
+  $newAuto = new auto;
+
+  $newAuto->Naam = $request['Naam'];
+  $newAuto->BeschrijvingKort = $request['BeschrijvingKort'];
+  $newAuto->BeschrijvingLang = $request['BeschrijvingLang'];
+  $newAuto->Prijs = $request['Prijs'];
+  $newAuto->Topsnelheid = $request['Topsnelheid'];
+  $newAuto->Kleur = $request['Kleur'];
+  $newAuto->Merk = $request['Merk'];
+  $newAuto->Bouwjaar = $request['Bouwjaar'];
+  $newAuto->Kilometerstand = $request['Kilometerstand'];
+  $newAuto->Types_ID = $request['Types_ID'];
+
+  $newAuto->save();
+
+  return Redirect::to('AdminCars');
+
+	//$v = Validator::make('$input', auto::$rules);
 	
-	if($v->passes())
-	{
-		$this->autos->create($input);
+	//if($v->passes())
+	//{
+	//	$this->auto->create(array($input));
 		
-		return Redirect::route('Admin.CarIndex');
-	}
+  //  
+	//}
 	
 	return Redirect::route('Admin.CarCreate')
 		->withInput()
@@ -143,11 +178,13 @@ class AdminCarsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy()
   {
     if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+
+    $id = Input::get('id');
 
     $this->auto->find($id)->delete();
 

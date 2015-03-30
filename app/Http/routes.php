@@ -36,5 +36,7 @@ Route::get('Register', 'UserController@Register');
 Route::post('Register', 'UserController@DoRegister');
 
 Route::resource('AdminCars', 'AdminCarsController');
+Route::get('AdminCars/Create', 'AdminCarsController@create');
+Route::get('AdminCars/Show', 'AdminCarsController@show');
 //Route::get('AdminCars', 'AdminCarsController@index');
-//Route::post('AdminCars/destroy/{id}', 'AdminCarsController@destroy');
+Route::post('AdminCars/destroy/{id}', 'AdminCarsController@destroy');
