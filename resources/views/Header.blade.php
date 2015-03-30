@@ -33,13 +33,16 @@ if(array_key_exists('CurrentUser',$_SESSION)){
             <a href={{URL::to("Webshop")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Webshop</div></a>
             <a href={{URL::to("Cart")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Winkelwagen</div></a>
             <a href={{URL::to("About")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">About</div></a>
-
-                @if($user != NULL)
-                    <a href={{URL::to("User")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">{{$user['Naam']}}</div></a>
-                    <a href={{URL::to("Logout")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Uitloggen</div></a>
-                    @else
-                    <a href={{URL::to("Login")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Inloggen</div></a>
+            @if($user != NULL)
+                <a href={{URL::to("User")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">{{$user['Naam']}}</div></a>
+                @if($user['Rol'] == 'Admin')
+                    <a href={{URL::to("Admin/")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Admin</div></a>
                 @endif
+
+                <a href={{URL::to("Logout")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Uitloggen</div></a>
+            @else
+                <a href={{URL::to("Login")}} class="TopMenuMenuLink"> <div class="TopMenuMenuItem">Inloggen</div></a>
+            @endif
 
 
 		</div>

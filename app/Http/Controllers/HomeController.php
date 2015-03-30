@@ -65,4 +65,11 @@ class HomeController extends Controller
         $data['Prev'] = $request['PrevUrl'];
         return view('BigPicture', $data);
     }
+
+    public function AdminHome(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        return view('Admin.AdminHome');
+    }
 }

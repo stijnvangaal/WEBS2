@@ -38,9 +38,9 @@ body{
 
 #TopMenuMenuBar{
 	height:50px;
-	width:700px;
+	width:750px;
 	margin:auto;
-	margin-left:350px;
+	margin-left:30%;
 }
 
 #TopMenuMenuLinkFirst{
@@ -344,6 +344,18 @@ body{
 
 #ShopCarList{
     float:right;
+}
+
+#AdminTypeTree ul a, #AdminTypeTree li{
+    list-style: none;
+    padding: 0;
+}
+
+#AdminTypeTree ul{
+    border-left: 1px solid black;
+    padding-left:0px;
+    margin-left: 50px;
+    margin-bottom:3px;
 }
 
 

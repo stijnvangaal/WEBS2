@@ -35,6 +35,11 @@ Route::get('Logout', 'UserController@DoLogOut');
 Route::get('Register', 'UserController@Register');
 Route::post('Register', 'UserController@DoRegister');
 
-Route::resource('AdminCars', 'AdminCarsController');
+//admin
+Route::get('Admin/', 'HomeController@AdminHome');
+Route::get('Admin/Types', 'AdminTypeController@TypeIndex');
+Route::post('Admin/AddType', 'AdminTypeController@AddType');
+Route::post('Admin/DeleteType', 'AdminTypeController@DeleteType');
+Route::resource('Admin/Cars', 'AdminCarsController');
 //Route::get('AdminCars', 'AdminCarsController@index');
 //Route::post('AdminCars/destroy/{id}', 'AdminCarsController@destroy');

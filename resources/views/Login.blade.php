@@ -9,12 +9,9 @@
     <h1>Login</h1>
 
     <p style="color:red;">
-
         @if($errors->any())
             {{$errors->first()}}
         @endif
-
-
     </p>
     <p>
        <label>Gebruikers naam</label>

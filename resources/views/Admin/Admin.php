@@ -5,7 +5,7 @@
 	<div id="Admin_Main_container">
 		<ul id="Admin_Main_list">
 			<li>
-				<a href="Admin_menu.php"><div>Menu</div></a>
+				<a href="Admin_menu.php"><div>Categoriën</div></a>
 			</li><li>
 				<a href="Admin_auto_add.php"><div>Auto's</div></a>
 			</li><li>
