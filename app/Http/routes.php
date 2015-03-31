@@ -43,8 +43,8 @@ Route::get('Admin/Types', 'AdminTypeController@TypeIndex');
 Route::post('Admin/AddType', 'AdminTypeController@AddType');
 Route::post('Admin/DeleteType', 'AdminTypeController@DeleteType');
 
-Route::resource('AdminCars', 'AdminCarsController');
-Route::get('AdminCars/Create', 'AdminCarsController@create');
-Route::get('AdminCars/Show', 'AdminCarsController@show');
-//Route::get('AdminCars', 'AdminCarsController@index');
-Route::post('AdminCars/destroy/{id}', 'AdminCarsController@destroy');
+Route::resource('Admin/Cars', 'AdminCarsController');
+Route::get('Admin/AddCar', 'AdminCarsController@create');
+Route::post('Admin/EditCar', 'AdminCarsController@update');
+Route::post('Admin/DeleteCar', 'AdminCarsController@delete');
+Route::post('Admin/UploadImage', 'AdminCarsController@uploadImage');

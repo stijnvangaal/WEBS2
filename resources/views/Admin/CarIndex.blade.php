@@ -2,7 +2,11 @@
 
 <h1>Alle autos</h1>
 
-<a href={{ URL::to('AdminCars', 'create') }}>Create</a>
+<a href={{ URL::to('Admin', 'AddCar') }}>Create</a>
+
+@if($errors->any())
+            {{$errors->first()}}
+        @endif
 
 @if ($autos->count())
 	<table>
@@ -25,17 +29,23 @@
 				<th>{{ $auto->Bouwjaar }}</th>
 
 				<th><a href={{ URL::to('AdminCars', 'edit', array($auto->id)) }}>Edit</a></th>
+				<th>
+					<form method="GET" id="AdminCarEditForm">
 
+    					<input type="hidden" name="SelectedCar" value={{ $auto->ID }}>
+    					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+    					<input type="submit" value="Edit" onclick="this.form.action='{{action('AdminCarsController@edit')}}'">
+
+					</form>
+				</th>
 				
 				<th>
-					<a href={{ URL::action('AdminCarsController@destroy', array('destroy', $auto->id))}}>Delete</a>
+					<form method="POST" id="AdminCarForm">
 
-					<a href="{{ route('AdminCars.destroy',array("2")) }}" data-method="destroy">Delete this entry</a>
+    					<input type="hidden" name="SelectedCar" value={{ $auto['ID'] }}>
+    					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+    					<input type="submit" value="Verwijderen" onclick="this.form.action='{{action('AdminCarsController@delete')}}'">
 
-					<form method="POST" action="/AdminCars/Delete/{{ $auto->id }}" accept-charset="UTF-8">
-						<input name="_method" type="hidden" value="DELETE">
-						<input name="_token" type="hidden" value="{{ csrf_token() }}">
-						<input type="submit" value="Delete">
 					</form>
 
 				</th>

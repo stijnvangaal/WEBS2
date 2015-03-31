@@ -26,6 +26,9 @@ class AdminCarsController extends Controller
             session_start();
         }
 
+    $action = $this->AdminCheck();
+    if($action != null){return $action;}
+
 		$autos = $this->auto->all();
 		
 		return view::make('Admin.CarIndex', compact('autos'));
@@ -41,6 +44,9 @@ class AdminCarsController extends Controller
     if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+
+    $action = $this->AdminCheck();
+    if($action != null){return $action;}
 
     $AllTypes = Type::get();
     $SortedTypes = array();
@@ -65,28 +71,109 @@ class AdminCarsController extends Controller
   {
     if (session_status() == PHP_SESSION_NONE) {
             session_start();
+    }
+
+    $action = $this->AdminCheck();
+    if($action != null){return $action;}
+
+    //Image uploader
+
+    $success = 0;
+
+    $target_dir = "Images/";
+    $filename = basename($_FILES["fileToUpload"]["name"]);
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    
+    // Check if image file is a actual image or fake image
+    if(isset($_POST["submit"])) 
+    {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
         }
+    }
+    
+    // Check if file already exists
+    if (file_exists($target_file)) 
+    {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+    
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 500000) 
+    {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+    
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) 
+    {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+    
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) 
+    {
+        echo "Sorry, your file was not uploaded.";
+    // if everything is ok, try to upload file
+    } 
+    else 
+    {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) 
+        {
+            $success = 1;
+        } 
+        else 
+        {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
 
-	$input = Input::all();
-	
-  $inputAuto = array($input);
+    //End Image uploader
+  
+    if($success == 1)
+    {
+      //$input = Input::all();
+    
+      //$inputAuto = array($input);
 
-  $newAuto = new auto;
+      $newAuto = new auto;
 
-  $newAuto->Naam = $request['Naam'];
-  $newAuto->BeschrijvingKort = $request['BeschrijvingKort'];
-  $newAuto->BeschrijvingLang = $request['BeschrijvingLang'];
-  $newAuto->Prijs = $request['Prijs'];
-  $newAuto->Topsnelheid = $request['Topsnelheid'];
-  $newAuto->Kleur = $request['Kleur'];
-  $newAuto->Merk = $request['Merk'];
-  $newAuto->Bouwjaar = $request['Bouwjaar'];
-  $newAuto->Kilometerstand = $request['Kilometerstand'];
-  $newAuto->Types_ID = $request['Types_ID'];
+      $newAuto->Naam = $request['Naam'];
+      $newAuto->BeschrijvingKort = $request['BeschrijvingKort'];
+      $newAuto->BeschrijvingLang = $request['BeschrijvingLang'];
+      $newAuto->Prijs = $request['Prijs'];
+      $newAuto->Topsnelheid = $request['Topsnelheid'];
+      $newAuto->Kleur = $request['Kleur'];
+      $newAuto->Merk = $request['Merk'];
+      $newAuto->Bouwjaar = $request['Bouwjaar'];
+      $newAuto->Kilometerstand = $request['Kilometerstand'];
+      $newAuto->Types_ID = $request['Types_ID'];
+      $newAuto->ImageUrl = $filename;
 
-  $newAuto->save();
+      $newAuto->save();
 
-  return Redirect::to('AdminCars');
+      return Redirect::to('Admin/Cars');
+    }
+    else
+    {
+      echo "Sorry, there was an error uploading your file.";
+      return Redirect::to('Admin/AddCar')
+        ->withErrors('Image upload failed');
+    }
+    
+
+  	
 
 	//$v = Validator::make('$input', auto::$rules);
 	
@@ -97,28 +184,9 @@ class AdminCarsController extends Controller
   //  
 	//}
 	
-	return Redirect::route('Admin.CarCreate')
-		->withInput()
-		->withErrors($v)
-		->with('message', 'There were validation errors');
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-
-    $auto = $this->auto->findOrFail($id);
 	
-	return View::make('Admin.CarShow', compact('auto'));
   }
+
 
   /**
    * Show the form for editing the specified resource.
@@ -126,21 +194,30 @@ class AdminCarsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function edit($id)
+  public function edit(Request $request)
   {
     if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
-    $auto = $this->auto->find($id);
-	
-	if(is_null($auto))
-	{
-		return Redirect::route('Admin.CarIndex');
-	}
-	
-	return View::make('Admin.CarEdit', compact('auto'));
+    $action = $this->AdminCheck();
+    if($action != null){return $action;}
+
+    
+
+    $editCar = auto::where('ID', '=', $request['SelectedCar']);
+
+    if($request['SelectedCar'] != null)
+    {
+      return View::make('Admin.CarEdit', ['carID' => $request['SelectedCar']]);
+    }
+    else
+    {
+      return redirect()->to('Admin/Cars')
+        -> withErrors('Car does not exist');
+    }
   }
+	
 
   /**
    * Update the specified resource in storage.
@@ -148,28 +225,88 @@ class AdminCarsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request)
   {
     if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
-    $input = array_except(Input::all(), '_method');
-	   $v = Validator::make($input, auto::$rules);
+    $action = $this->AdminCheck();
+    if($action != null){return $action;}
 
+    auto::where('ID', '=', $request['ID'])->update(array('Naam' => $request['Naam'], 'BeschrijvingKort' => $request['BeschrijvingKort'],
+    'BeschrijvingLang' => $request['BeschrijvingLang'], 'Prijs' => $request['Prijs'], 'Topsnelheid' => $request['Topsnelheid'],
+    'Kleur' => $request['Kleur'], 'Bouwjaar' => $request['Bouwjaar'], 'Kilometerstand' => $request['Kilometerstand'], 'Types_ID' => $request['Types_ID'] ));
 
-	   if ($v->passes())
-     {
-        $auto = $this->auto->find($id);
-        $auto->update($input);
+    //Image uploader
+    if(basename($_FILES["fileToUpload"]["name"]) != null)
+    {
+      $success = 0;
 
-        return View::make('Admin.CarShow');
-     }
+      $target_dir = "Images/";
+      $filename = basename($_FILES["fileToUpload"]["name"]);
+      $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+      $uploadOk = 1;
+      $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+      
+      // Check if image file is a actual image or fake image
+      if(isset($_POST["submit"])) 
+      {
+          $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+          if($check !== false) {
+              echo "File is an image - " . $check["mime"] . ".";
+              $uploadOk = 1;
+          } else {
+              echo "File is not an image.";
+              $uploadOk = 0;
+          }
+      }
+      
+      // Check if file already exists
+      if (file_exists($target_file)) 
+      {
+          echo "Sorry, file already exists.";
+          $uploadOk = 0;
+      }
+      
+      // Check file size
+      if ($_FILES["fileToUpload"]["size"] > 500000) 
+      {
+          echo "Sorry, your file is too large.";
+          $uploadOk = 0;
+      }
+      
+      // Allow certain file formats
+      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+      && $imageFileType != "gif" ) 
+      {
+          echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+          $uploadOk = 0;
+      }
+      
+      // Check if $uploadOk is set to 0 by an error
+      if ($uploadOk == 0) 
+      {
+          echo "Sorry, your file was not uploaded.";
+      // if everything is ok, try to upload file
+      } 
+      else 
+      {
+          if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) 
+          {
+              $success = 1;
+          } 
+          else 
+          {
+              echo "Sorry, there was an error uploading your file.";
+          }
+      }
 
-     return Redirect::route('Admin.CarEdit', $id)
-      ->withInput()
-      ->withErrors($v)
-      ->with('message', 'There were validation errors.');
+      auto::where('ID', '=', $request['ID'])->update(array('ImageUrl' => $filename));
+    }
+    //End Image uploader
+
+    return redirect()->to('Admin/Cars');
   }
 
   /**
@@ -178,16 +315,31 @@ class AdminCarsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function delete()
+  public function delete(Request $request)
   {
     if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
-    $id = Input::get('id');
+    $action = $this->AdminCheck();
+    if($action != null){return $action;}
+    
+      if($request['SelectedCar'] != null)
+      {
+        auto::where('ID', '=', $request['SelectedCar'])->delete();
+        return redirect()->to('Admin/Cars');
+      }
+  }
 
-    $this->auto->find($id)->delete();
-
-    return Redirect::route('Admin.CarIndex');
+  public function AdminCheck(){
+        if(array_key_exists('CurrentUser',$_SESSION) && !empty($_SESSION['CurrentUser'])){
+            if($_SESSION['CurrentUser']['Rol'] != 'Admin'){
+                return redirect()->to('Login');
+            }
+            else{return null;}
+        }
+        else{
+            return redirect()->to('Login');
+        }
   }
 }
