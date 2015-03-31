@@ -143,6 +143,7 @@ class AdminCarsController extends Controller
   
     if($success == 1)
     {
+      $correctInput = 1;
       //$input = Input::all();
     
       //$inputAuto = array($input);
@@ -152,16 +153,58 @@ class AdminCarsController extends Controller
       $newAuto->Naam = $request['Naam'];
       $newAuto->BeschrijvingKort = $request['BeschrijvingKort'];
       $newAuto->BeschrijvingLang = $request['BeschrijvingLang'];
-      $newAuto->Prijs = $request['Prijs'];
-      $newAuto->Topsnelheid = $request['Topsnelheid'];
+      
+      if(is_numeric($request['Prijs']))
+      {
+        $newAuto->Prijs = $request['Prijs'];
+      }
+      else
+      {
+        $correctInput = 0;
+      }
+      
+      if(is_numeric($request['Topsnelheid']))
+      {
+        $newAuto->Topsnelheid = $request['Topsnelheid'];
+      }
+      else
+      {
+        $correctInput = 0;
+      }
+      
       $newAuto->Kleur = $request['Kleur'];
       $newAuto->Merk = $request['Merk'];
-      $newAuto->Bouwjaar = $request['Bouwjaar'];
-      $newAuto->Kilometerstand = $request['Kilometerstand'];
+
+      if(is_numeric($request['Kilometerstand']))
+      {
+        $newAuto->Bouwjaar = $request['Bouwjaar'];
+      }
+      else
+      {
+        $correctInput = 0;
+      }
+
+      if(is_numeric($request['Kilometerstand']))
+      {
+        $newAuto->Kilometerstand = $request['Kilometerstand'];
+      }
+      else
+      {
+        $correctInput = 0;
+      }
+      
       $newAuto->Types_ID = $request['Types_ID'];
       $newAuto->ImageUrl = $filename;
 
-      $newAuto->save();
+      if($correctInput == 1)
+      {
+        $newAuto->save();
+      }
+      else
+      {
+        return Redirect::to('Admin/AddCar')
+        ->withErrors('input incorrect!');
+      }
 
       return Redirect::to('Admin/Cars');
     }
@@ -230,6 +273,34 @@ class AdminCarsController extends Controller
     if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+
+    $correctInput = 1;
+
+    if(!is_numeric($request['Prijs']))
+    {
+      $correctInput = 0;
+    }
+
+    if(!is_numeric($request['Topsnelheid']))
+    {
+      $correctInput = 0;
+    }
+
+    if(!is_numeric($request['Bouwjaar']))
+    {
+      $correctInput = 0;
+    }
+
+    if(!is_numeric($request['Kilometerstand']))
+    {
+      $correctInput = 0;
+    }
+
+    if($correctInput == 0)
+    {
+      return View::make('Admin.CarEdit', ['carID' => $request['ID']])
+        ->withErrors('input incorrect!');
+    }
 
     $action = $this->AdminCheck();
     if($action != null){return $action;}

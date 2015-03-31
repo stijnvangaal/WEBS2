@@ -55,9 +55,9 @@
     <p>
     <select name="Types_ID">
     		@foreach($TypeList as $type)
-    			@if($type['ParentId'] != NULL)
-    				<option value={{ $type['ID'] }}>{{ $type['Naam'] }}</option>
-    			@endif
+
+    			<option value={{ $type['ID'] }}>{{ $type['Naam'] }}</option>
+
     		@endforeach
     	
     </select>

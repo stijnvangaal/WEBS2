@@ -17,7 +17,6 @@
 				<th>Bouwjaar</th>
 				<th></th>
 				<th></th>
-				<th></th>
 			</tr>
 		</thead>
 	
@@ -28,7 +27,6 @@
 				<th>{{ $auto->Prijs }}</th>
 				<th>{{ $auto->Bouwjaar }}</th>
 
-				<th><a href={{ URL::to('AdminCars', 'edit', array($auto->id)) }}>Edit</a></th>
 				<th>
 					<form method="GET" id="AdminCarEditForm">
 
