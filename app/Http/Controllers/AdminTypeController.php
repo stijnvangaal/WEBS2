@@ -12,6 +12,8 @@ class AdminTypeController extends Controller{
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $action = $this->AdminCheck();
+        if($action != null){return $action;}
 
         $AllTypes = Type::get();
         $SortedTypes = array();
@@ -30,6 +32,9 @@ class AdminTypeController extends Controller{
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $action = $this->AdminCheck();
+        if($action != null){return $action;}
+
         if($request['SelectedType'] != null){
             if($request['NewType'] != null){
                 if(strlen($request['NewType']) > 0) {
@@ -52,6 +57,9 @@ class AdminTypeController extends Controller{
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $action = $this->AdminCheck();
+        if($action != null){return $action;}
+
         if ($request['SelectedType'] != null) {
             if ($request['SelectedType'] != '!!!') {
                 $DelType = Type::where('ID', '=', $request['SelectedType'])->get()->first();
@@ -101,5 +109,17 @@ class AdminTypeController extends Controller{
         }
 
         return implode('',$result);
+    }
+
+    public function AdminCheck(){
+        if(array_key_exists('CurrentUser',$_SESSION) && !empty($_SESSION['CurrentUser'])){
+            if($_SESSION['CurrentUser']['Rol'] != 'Admin'){
+                return redirect()->to('Login');
+            }
+            else{return null;}
+        }
+        else{
+            return redirect()->to('Login');
+        }
     }
 }

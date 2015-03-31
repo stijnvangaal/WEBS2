@@ -73,6 +73,9 @@ class HomeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $action = $this->AdminCheck();
+        if($action != null){return $action;}
+
         return view('Admin.AdminHome');
     }
 
@@ -80,6 +83,9 @@ class HomeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $action = $this->AdminCheck();
+        if($action != null){return $action;}
+
         $about['Tekst'] = Nieuwsbericht::where('Titel', '=', 'About')->get()->first()['Bericht'];
 
         return view('Admin.AboutEdit', $about);
@@ -89,6 +95,9 @@ class HomeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $action = $this->AdminCheck();
+        if($action != null){return $action;}
+
         $about['Tekst'] = Nieuwsbericht::where('Titel', '=', 'About')->get()->first()['Bericht'];
         if($about['Tekst'] != null){
             Nieuwsbericht::where('Titel', '=', 'About')->update(Array('Bericht' => $request['About']));
@@ -101,5 +110,17 @@ class HomeController extends Controller
             $new->save();
         }
         return redirect()->to('Admin/');
+    }
+
+    public function AdminCheck(){
+        if(array_key_exists('CurrentUser',$_SESSION) && !empty($_SESSION['CurrentUser'])){
+            if($_SESSION['CurrentUser']['Rol'] != 'Admin'){
+                return redirect()->to('Login');
+            }
+            else{return null;}
+        }
+        else{
+            return redirect()->to('Login');
+        }
     }
 }
