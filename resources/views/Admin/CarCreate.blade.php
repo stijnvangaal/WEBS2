@@ -1,4 +1,4 @@
-@include('Header')
+@include('Admin.Header')
 
 <h1>Create car</h1>
 
@@ -7,7 +7,7 @@
 	$TypeList = Type::all();
 ?>
 
-<form method="POST" action="{{action('AdminCarsController@store')}}"  >
+<form method="POST" action="{{action('AdminCarsController@store')}}" enctype="multipart/form-data"  >
 
     <p style="color:red;">
 
@@ -52,6 +52,7 @@
         <label>Kilometerstand</label>
         <input type="text" name="Kilometerstand">
     </p>
+    <p>
     <select name="Types_ID">
     		@foreach($TypeList as $type)
     			@if($type['ParentId'] != NULL)
@@ -60,9 +61,13 @@
     		@endforeach
     	
     </select>
-    
+    </p>
+    <p>
+        <input type="file" name="fileToUpload" id="fileToUpload">
+    </p>
+
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <p><input type="submit" value="Create"></p>
 </form>
 
-@include('Footer')
+@include('Admin.Footer')
