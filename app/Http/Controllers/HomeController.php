@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\auto;
+use App\Nieuwsbericht;
 use App\Type;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
@@ -44,7 +45,9 @@ class HomeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        return view('about');
+        $about['Tekst'] = Nieuwsbericht::where('Titel', '=', 'About')->get()->first()['Bericht'];
+
+        return view('about', $about);
     }
 
     public function Car($ID){
@@ -71,5 +74,32 @@ class HomeController extends Controller
             session_start();
         }
         return view('Admin.AdminHome');
+    }
+
+    public function AdminAbout(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $about['Tekst'] = Nieuwsbericht::where('Titel', '=', 'About')->get()->first()['Bericht'];
+
+        return view('Admin.AboutEdit', $about);
+    }
+
+    public function UpdateAbout(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $about['Tekst'] = Nieuwsbericht::where('Titel', '=', 'About')->get()->first()['Bericht'];
+        if($about['Tekst'] != null){
+            Nieuwsbericht::where('Titel', '=', 'About')->update(Array('Bericht' => $request['About']));
+        }
+        else{
+            $new = new Nieuwsbericht;
+            $new->Titel = 'About';
+            $new->Bericht = $request['About'];
+            $new->timestamps=false;
+            $new->save();
+        }
+        return redirect()->to('Admin/');
     }
 }

@@ -19,7 +19,7 @@
 
                             <table cellspacing='0'>
                                 <tr>
-                                    <td rowspan='3'><img src='Images/{{$Car->Car->ImageUrl}}' class='SingleCarImage'></td>
+                                    <td rowspan='3'><img src='/laravel/public/Images/{{$Car->Car->ImageUrl}}' class='SingleCarImage'></td>
                                     <td class='singlecarspecs'>Naam:</td>
                                     <td class='singlecarvalue'>{{$Car->Car->Naam}}</td>
                                 </tr>

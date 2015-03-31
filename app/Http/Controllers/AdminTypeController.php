@@ -27,6 +27,9 @@ class AdminTypeController extends Controller{
     }
 
     public function AddType(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if($request['SelectedType'] != null){
             if($request['NewType'] != null){
                 if(strlen($request['NewType']) > 0) {
@@ -46,20 +49,15 @@ class AdminTypeController extends Controller{
 
     public function DeleteType(Request $request)
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if ($request['SelectedType'] != null) {
             if ($request['SelectedType'] != '!!!') {
-                $DelType = Type::find($request['SelectedType']);
-                $children = Type::where('ParentId', '=', $DelType->ID)->get();
-                $error = "";
-                foreach($children as $child){
-                    $child->ParentId = $DelType->ParentId;
-                    $child->timestamps = false;
-                    $child->save();
-                    $error = $error . $child->ID . " should be updated ";
-                }
-                $DelType->delete();
-                $error = $error . $DelType->Naam . " should be gone";
-//                return redirect()->back()->withErrors([$error, 'msg']);
+                $DelType = Type::where('ID', '=', $request['SelectedType'])->get()->first();
+                Type::where('ParentId', '=', $request['SelectedType'])->update(array('ParentId' => $DelType->ParentId));
+                Auto::where('Types_Id', '=', $request['SelectedType'])->update(array('Types_Id' =>$DelType->ParentId));
+                Type::where('ID', '=', $request['SelectedType'])->delete();
                 return redirect()->to('Admin/Types');
             } else {
                 $error = "Null is niet te verwijderen";

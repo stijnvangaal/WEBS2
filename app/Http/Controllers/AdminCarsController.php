@@ -178,7 +178,7 @@ class AdminCarsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy()
+  public function delete()
   {
     if (session_status() == PHP_SESSION_NONE) {
             session_start();

@@ -346,6 +346,17 @@ body{
     float:right;
 }
 
+#AdminTypeForm{
+    width:450px;
+    float:left;
+    max-height: 750px;
+}
+
+#AdminTypeTree{
+    width:450px;
+    overflow-x: auto;
+}
+
 #AdminTypeTree ul a, #AdminTypeTree li{
     list-style: none;
     padding: 0;
@@ -356,6 +367,21 @@ body{
     padding-left:0px;
     margin-left: 50px;
     margin-bottom:3px;
+}
+
+#AdminTypeRules{
+    float:right;
+    width:500px;
+    text-align: justify;
+}
+
+#AdminAboutTekst{
+    margin:auto;
+    border:10px solid red;
+}
+
+textarea{
+    resize: none;
 }
 
 
