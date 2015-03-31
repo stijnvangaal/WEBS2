@@ -28,7 +28,7 @@ class UserController extends Controller{
                 array_push($SortedTypes, $type);
             }
         }
-
+        $data['SearchString'] = "";
         $data['AllCars'] = auto::get();
         $data['Types'] = "<div id='ShopTypeTree'>" . $this->nested2ul($SortedTypes) . "</div>";
         return view('Webshop', $data);
@@ -52,11 +52,50 @@ class UserController extends Controller{
                 break;
             }
         }
+        $data['SearchString'] = "";
         $allCars = array();
         $selectedType['children'] = $this->getChildren($selectedType->ID, $AllTypes);
         $data['AllCars'] = $this->getChildrenCars($selectedType, $allCars);
         $data['Types'] = "<div id='ShopTypeTree'>" . $this->nested2ul($SortedTypes) . "</div>";
         return view('Webshop', $data);
+    }
+
+    public function WebshopSearch(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $AllTypes = Type::get();
+        $SortedTypes = array();
+        foreach($AllTypes as $type){
+            if($type['ParentId'] == NULL || $type['ParentId'] == 0){
+                $type['children'] = $this->getChildren($type->ID, $AllTypes);
+                array_push($SortedTypes, $type);
+            }
+        }
+        $data['Search'] = "";
+        $data['AllCars'] = auto::get();
+        $data['Types'] = "<div id='ShopTypeTree'>" . $this->nested2ul($SortedTypes) . "</div>";
+        return view('WebsSearch', $data);
+    }
+
+    public function WebshopDoSearch(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $crit =  $request['SearchCrit'];
+        $data['Search'] = $crit;
+
+        $data['AllCars'] = auto::where('Naam', 'LIKE', '%'.$crit.'%')
+            ->orwhere('BeschrijvingKort', 'LIKE', '%'.$crit.'%')
+            ->orwhere('BeschrijvingLang', 'LIKE', '%'.$crit.'%')
+            ->orwhere('Kleur', 'LIKE', '%'.$crit.'%')
+            ->orwhere('Merk', 'LIKE', '%'.$crit.'%')
+            ->get();
+        foreach($data['AllCars'] as $Car){
+            $Car->Type = Type::find($Car['Types_ID'])['Naam'];
+        }
+
+        return view('WebsSearch', $data);
     }
 
     public function getChildrenCars($Type, $allCars){

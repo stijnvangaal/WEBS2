@@ -8,6 +8,12 @@
 <div id="contentcontainer">
 
     {{--Create type tree hierarchy with link--}}
+    <form method="POST" action="{{action('UserController@WebShopDoSearch')}}">
+        <label><b>Zoeken</b></label><br/>
+        <input type="text" name="SearchCrit">
+        <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        <input type="submit" value="zoeken">
+    </form>
     <?php
         $smalltypes = explode('_',$Types);
         foreach($smalltypes as $type){

@@ -181,7 +181,7 @@ body{
 	border-collapse:separate;
 }
 
-.singlecardiv .singlecarspecs{	
+.singlecardiv .singlecarspecs{
 	padding-left:60px;
 }
 
@@ -204,6 +204,7 @@ body{
 
 .SingleCarImage{
 	max-height:100px;
+    width: 100px;
 }
 
 .BigPicture{
@@ -382,6 +383,70 @@ body{
 
 textarea{
     resize: none;
+}
+
+#SearchCarList{
+    float:right;
+}
+
+#longSearchcarlist{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+#longSearchcarlist li{
+    margin:0;
+}
+#longSearchcarlist td{
+    border:1px solid;
+}
+
+.Searchcardiv{
+    border-bottom:2px solid rgb(200,220,220);
+    padding:0 0 0 60px;
+}
+
+.searchcardiv table{
+    border-collapse:separate;
+}
+
+.searchcarspecs{
+
+    font-weight: bold;
+}
+
+.searchcardiv tr{
+    max-height:10px;
+}
+
+.searchcardiv td{
+    max-height:10px;
+}
+
+.searchcarselect{
+    padding-right:50px;
+    text-align: center;
+}
+
+.searchcarvalue{
+    padding-right:60px;
+    min-width:90px;
+    max-width:90px;
+}
+
+.searchCarImage{
+    max-height:100px;
+    width: 100px;
+}
+
+#Beschrijving {
+    max-height: 130px;
+    width: 1280px;
+    word-wrap: break-word;
+    text-align: justify;
+    font-size: 14px;
+    vertical-align: top;
 }
 
 
