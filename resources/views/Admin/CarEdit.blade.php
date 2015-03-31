@@ -56,13 +56,13 @@
     <p>
     <select name="Types_ID">
     		@foreach($TypeList as $type)
-    			@if($type['ParentId'] != NULL)
-    				@if($type['ID'] == $Car->Types_ID)
-    					<option value={{ $type['ID'] }} selected>{{ $type['Naam'] }}</option>
-    				@else
-    					<option value={{ $type['ID'] }}>{{ $type['Naam'] }}</option>
-    				@endif
+
+    			@if($type['ID'] == $Car->Types_ID)
+    				<option value={{ $type['ID'] }} selected>{{ $type['Naam'] }}</option>
+    			@else
+    				<option value={{ $type['ID'] }}>{{ $type['Naam'] }}</option>
     			@endif
+
     		@endforeach
     	
     </select>
