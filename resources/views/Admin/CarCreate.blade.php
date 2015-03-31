@@ -1,4 +1,4 @@
-@include('Header')
+@include('Admin.Header')
 
 <h1>Create car</h1>
 
@@ -70,4 +70,4 @@
     <p><input type="submit" value="Create"></p>
 </form>
 
-@include('Footer')
+@include('Admin.Footer')

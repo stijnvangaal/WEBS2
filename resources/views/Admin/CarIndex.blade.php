@@ -1,4 +1,4 @@
-@include('Header')
+@include('Admin.Header')
 
 <h1>Alle autos</h1>
 
@@ -59,4 +59,4 @@
 	There are no cars
 @endif
 
-@include('Footer')
+@include('Admin.Footer')
