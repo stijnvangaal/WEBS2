@@ -56,7 +56,7 @@ class HomeController extends Controller
         }
         $Car = auto::find($ID);
         $model['Car'] = $Car;
-        $model['Type'] = type::find($Car->ID);
+        $model['Type'] = type::find($Car->Types_ID);
         return view('Car', $model);
     }
 

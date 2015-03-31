@@ -3,6 +3,7 @@ $user = NULL;
 if(array_key_exists('CurrentUser',$_SESSION)){
     $user = $_SESSION['CurrentUser'];
 }?>
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" content="text/css" href="/Laravel/public/BasicStyle.css">
